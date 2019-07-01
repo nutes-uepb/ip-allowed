@@ -88,7 +88,7 @@ function whitelist(hostsAllowed, options) {
         // log: Pass a log function or `false` to disable log.
         // `Function(String clientIp, Boolean access)`
         log: function (clientIp, accessDenied) {
-            console.log(`${clientIp} access ${accessDenied ? 'denied!' : 'allowed!'}`)
+            console.log(`Access ${accessDenied ? 'denied' : 'allowed'} for ip address ${clientIp}`)
         },
         // Message sent when the request is denied, can be a string or JSON.
         // `Function(String clientIp)`
@@ -102,8 +102,8 @@ function whitelist(hostsAllowed, options) {
     }
 
     // Override default options.
-    _options.log = options.log
-    _options.message = options.message ? options.message : _options.message
+    _options.log = options && options.log ? options.log : _options.log
+    _options.message = options && options.message ? options.message : _options.message
 
     // Express middleware.
     return function (req, res, next) {
@@ -121,7 +121,7 @@ function whitelist(hostsAllowed, options) {
         clientMatch(clientIp, hostsAllowed)
             .then(isMatch => {
                 if (typeof _options.log === 'function') {
-                    _options.log.apply(null, [clientIp, isMatch])
+                    _options.log.apply(null, [clientIp, !isMatch])
                 }
 
                 if (!isMatch && typeof _options.message === 'function') {
