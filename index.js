@@ -70,7 +70,7 @@ async function getIPFromHost(host) {
     return new Promise((resolve, reject) => {
         if (host === '::1') return resolve('127.0.0.1')
         dns.lookup(host, async (err, ip) => {
-            if (err) return reject(err)
+            if (err) return resolve()
             return resolve(ip)
         })
     })
@@ -92,7 +92,7 @@ function whitelist(hostsAllowed, options) {
         },
         // Message sent when the request is denied, can be a string or JSON.
         // `Function(String clientIp)`
-        message: function (clientIp) {
+        message: function (err, clientIp) {
             return {
                 code: '401',
                 message: 'Unauthorized',
@@ -125,13 +125,13 @@ function whitelist(hostsAllowed, options) {
                 }
 
                 if (!isMatch && typeof _options.message === 'function') {
-                    res.status(401).send(_options.message(clientIp))
+                    res.status(401).send(_options.message(null, clientIp))
                 } else {
                     next()
                 }
             })
-            .catch(e => {
-                throw e
+            .catch(err => {
+                res.status(401).send(_options.message(err, clientIp))
             })
     }
 }
