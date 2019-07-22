@@ -10,7 +10,9 @@ A middleware for access permissions based on IP/host addresses. Customers who ar
 * Create a list of permissions with hostnames and IP addresses and control who can access the resources of your API;  
 * Support IPv4, IPv6, CIDR format & IPv4 mapped IPv6 addresses;  
 * Custom log function;  
-* Custom message function.  
+* Custom message function;
+* Set request code status or use default;
+* Set URL to redirect.
   
 ## Installation  
 > `npm i ip-allowed --save`  
@@ -39,7 +41,9 @@ const options = {
     },   
     message: function (err, clientIp) {  
          return {error: `Client with IP address ${clientIp} is not allowed!`}    
-    }   
+    },
+    statusCode: 401,
+    redirectTo: ''   
 };  
 ```  
 
@@ -62,7 +66,12 @@ const options = {
         }    
    }  
    ```  
-     
+- **statusCode**: The status code sent when the request was denied.
+  - Valor default:   `401`
+- **redirectTo**: URL to redirect when request is denied. Be sure to set the statusCode to 301 or 302 as it is the HTTP status codes that apply in this situation. Otherwise, the default 401 will be used.
+  - Valor default:   `""`
+ 
+
 [//]: # (These are reference links used in the body of this note.)  
 [license-image]: https://img.shields.io/badge/license-Apache%202-blue.svg
 [license-url]: https://github.com/nutes-uepb/ip-allowed/blob/master/LICENSE  

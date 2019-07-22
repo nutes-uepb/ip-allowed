@@ -25,8 +25,7 @@ async function clientMatch(clientIp, whitelist) {
         isMatch = whitelist.some((result) => {
             // IPv6 address has 128 bits and IPv4 has 32 bits.
             // Setting the routing prefix to all bits in a CIDR address means only the specified address is allowed.
-            result = result || ''
-            result = result.indexOf('/') === -1 ? result + '/128' : result
+            result = (result && result.indexOf('/') === -1) ? result + '/128' : result || ''
 
             const range = result.split('/')
             if (range.length === 2 && Address.isValid(range[0]) && isNumeric(range[1])) {
@@ -80,23 +79,21 @@ function ipAllowed(allowedList, options) {
     const _options = {
         // log: Pass a log function or `false` to disable log.
         // `Function(String clientIp, Boolean access)`
-        log: (clientIp, accessDenied) => {
+        log: options && options.log !== undefined ? options.log : (clientIp, accessDenied) => {
             console.log(`Access ${accessDenied ? 'denied' : 'allowed'} for ip address ${clientIp}`)
         },
         // Message sent when the request is denied, can be a string or JSON.
         // `Function(String clientIp)`
-        message: (err, clientIp) => {
+        message: options && options.message ? options.message : (err, clientIp) => {
             return {
                 code: 401,
                 message: 'Unauthorized',
                 description: `Access denied for IP address ${clientIp}`
             }
-        }
+        },
+        statusCode: options && options.statusCode ? parseInt(options.statusCode, 10) : 401,
+        redirectTo: options && options.redirectTo ? options.redirectTo : ''
     }
-
-    // Override default options.
-    _options.log = options && options.log !== undefined ? options.log : _options.log
-    _options.message = options && options.message ? options.message : _options.message
 
     // Express middleware.
     return (req, res, next) => {
@@ -118,8 +115,8 @@ function ipAllowed(allowedList, options) {
                 }
 
                 if (!isMatch && typeof _options.message === 'function') {
-                    res.status(401)
-                    res.send(_options.message(null, clientIp))
+                    if (_options.redirectTo.length > 0) res.redirect(_options.statusCode, _options.redirectTo)
+                    else res.status(_options.statusCode).send(_options.message(null, clientIp))
                 } else {
                     next()
                 }

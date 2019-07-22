@@ -1,6 +1,6 @@
 {
   "name": "ip-allowed",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A middleware for access permissions based on IP/host addresses. Customers who are not on the whitelist have their requests blocked.",
   "main": "index.js",
   "directories": {
@@ -30,7 +30,7 @@
     "security"
   ],
   "author": "NUTES/UEPB",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/nutes-uepb/ip-allowed/issues"
   },
