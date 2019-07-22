@@ -1,7 +1,7 @@
 
 IP Allowed 
 =========================  
-[![License][license-image]][license-url] [![NPM Version][npm-image]][npm-url] [![NPM Downloads][downloads-image]][npm-url] [![Travis][travis-image]][travis-url] [![Coverage][coverage-image]][coverage-url]  [![Vulnerabilities][known-vulnerabilities-image]][known-vulnerabilities-url]  [![Dependencies][dependencies-image]][dependencies-url] [![DependenciesDev][dependencies-dev-image]][dependencies-dev-url] [![Vulnerabilities][known-vulnerabilities-image]][known-vulnerabilities-url]  [![Releases][releases-image]][releases-url]  [![Contributors][contributors-image]][contributors-url] [![Issues][issues-image]][issues-url]
+[![License][license-image]][license-url] [![NPM Version][npm-image]][npm-url] [![NPM Downloads][downloads-image]][npm-url] [![Travis][travis-image]][travis-url] [![Coverage][coverage-image]][coverage-url] [![Dependencies][dependencies-image]][dependencies-url] [![DependenciesDev][dependencies-dev-image]][dependencies-dev-url] [![Vulnerabilities][known-vulnerabilities-image]][known-vulnerabilities-url]  [![Releases][releases-image]][releases-url]  [![Contributors][contributors-image]][contributors-url] [![Issues][issues-image]][issues-url]
  
 ---
 A middleware for access permissions based on IP/host addresses. Customers who are not on the whitelist have their requests blocked. The response of the request is resumed with status code 401 and an error message that may be pernanalized.
