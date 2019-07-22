@@ -8,8 +8,7 @@
   },
   "scripts": {
     "test": "nyc --reporter=text-summary mocha --opts test/mocha.opts test/*.spec.js",
-    "test:cov": "nyc --clean --all --reporter=html --reporter=text mocha --opts test/mocha.opts test/*.spec.js",
-    "test:travis": "mocha --opts test/mocha.opts test/*.spec.js && nyc report --reporter=text-lcov | coveralls"
+    "test:cov": "nyc --clean --all --reporter=html --reporter=text mocha --opts test/mocha.opts test/*.spec.js"
   },
   "repository": {
     "type": "git",
