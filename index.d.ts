@@ -1,9 +1,9 @@
-declare const expressIpWhitelist: expressIpWhitelist.ExpressIpWhitelist
-export = expressIpWhitelist
+declare const ipAllowed: expressIpWhitelist.IpAllowed
+export = ipAllowed
 
 declare namespace expressIpWhitelist {
-    interface ExpressIpWhitelist {
-        (hostsAllowed: Array<string> | string, options?: Options): any;
+    interface IpAllowed {
+        (allowedList: Array<string> | string, options?: Options): any;
     }
 
     interface Options {

@@ -1,41 +1,49 @@
 {
-  "name": "express-ip-whitelist",
+  "name": "ip-allowed",
   "version": "1.0.0",
-  "description": "An express middleware for access permissions based on Host/IP addresses. Hosts/IPs of the clients that are not on the whitelist have access blocked.",
+  "description": "A middleware for access permissions based on IP/host addresses. Customers who are not on the whitelist have their requests blocked.",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "nyc --clean --all --reporter=text mocha --opts test/mocha.opts test/**/*.spec.js"
+    "test": "nyc --reporter=text-summary mocha --opts test/mocha.opts test/*.spec.js",
+    "test:cov": "nyc --clean --all --reporter=html --reporter=text mocha --opts test/mocha.opts test/*.spec.js",
+    "test:travis": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nutes-uepb/express-ip-whitelist.git"
+    "url": "git+https://github.com/nutes-uepb/ip-allowed"
   },
   "keywords": [
-    "expressjs",
     "middleware",
-    "address",
     "ip",
+    "allowed",
+    "ip-allowed",
+    "address",
+    "blocker",
     "ip-blocker",
+    "denied",
     "whitelist",
     "access-control",
-    "ip-blocker",
-    "hostnames"
+    "host",
+    "hostnames",
+    "security"
   ],
   "author": "NUTES/UEPB",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nutes-uepb/express-ip-whitelist/issues"
+    "url": "https://github.com/nutes-uepb/ip-allowed/issues"
   },
-  "homepage": "https://github.com/nutes-uepb/express-ip-whitelist#readme",
+  "homepage": "https://github.com/nutes-uepb/ip-allowed#readme",
   "dependencies": {
-    "ipaddr.js": "^1.9.0"
+    "ipaddr.js": "^1.9.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "express": "^4.17.1",
     "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
     "supertest": "^4.0.2"
   }
 }

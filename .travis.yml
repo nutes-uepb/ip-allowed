@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "8"
+  - "9"
+  - "10"
+  - "11"
+  - "12"
+sudo: false
+cache:
+  directories:
+    - node_modules
+before_script:
+  - npm install && npm install coveralls mocha-lcov-reporter --save-dev
+script:
+  - npm run test:travis
+notifications:
+  email:
+    on_success: never
+    on_failure: always
