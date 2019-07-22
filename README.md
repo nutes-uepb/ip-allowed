@@ -26,7 +26,9 @@ To use middleware is very simple, just import and then define your list of permi
 const whitelist = require('ip-allowed');  
   
 // Create middleware.  
-const middleware = whitelist(['127.0.0.1', 'www.client.com'], options);  
+// Only requests the "localhost/127.0.0.1" 
+// and ip from the domain "client.com" will be accepted.
+const middleware = whitelist(['127.0.0.1', 'client.com'], options);  
   
 // Injecting middleware into instance express  
 const express = require('express');  
@@ -49,14 +51,14 @@ const options = {
 
 > The options are not mandatory and have default values.  
 - **log**: Allows you to manipulate the log on each request. To disable log assign its value equal to `false`.  
-  - Valor default:   
+  - Default value:   
    ```js  
    (clientIp, accessDenied) => {    
          console.log(`Access ${accessDenied ? 'denied' : 'allowed'} for ip address ${clientIp}`)    
    }  
    ```  
 - **message**: Allows you to handle the error message when the client IP is not on the whitelist.
-  - Valor default:   
+  - Default value:   
    ```js  
    (err, clientIp) => {    
         return {    
@@ -67,9 +69,9 @@ const options = {
    }  
    ```  
 - **statusCode**: The status code sent when the request was denied.
-  - Valor default:   `401`
+  - Default value:   `401`
 - **redirectTo**: URL to redirect when request is denied. Be sure to set the statusCode to 301 or 302 as it is the HTTP status codes that apply in this situation. Otherwise, the default 401 will be used.
-  - Valor default:   `""`
+  - Default value:   `""`
  
 
 [//]: # (These are reference links used in the body of this note.)  
