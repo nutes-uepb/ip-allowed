@@ -1,6 +1,6 @@
 {
   "name": "ip-allowed",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A middleware for access permissions based on IP/host addresses. Customers who are not on the whitelist have their requests blocked.",
   "main": "index.js",
   "directories": {
