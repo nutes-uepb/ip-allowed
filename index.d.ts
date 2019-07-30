@@ -9,6 +9,8 @@ declare namespace expressIpWhitelist {
     interface Options {
         log?: Log | boolean
         message?: Message
+        statusCode?: number,
+        redirectTo?: string,
     }
 
     interface Log {
